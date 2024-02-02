@@ -1,0 +1,46 @@
+name: RL Scan
+
+on:
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  BuildAndScan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Build
+        run: cargo build --verbose
+      
+      - name: Run tests
+        run: cargo test --verbose
+
+      - name: RL scan
+        continue-on-error: true
+        id: rl-scan
+        
+        env:
+          RLPORTAL_ACCESS_TOKEN: ${{ secrets.RL_API_TOK }}
+          
+        uses: reversinglabs/gh-action-rl-scanner-cloud-only@v1
+        with:
+          rl-verbose: true
+          rl-portal-server: trial
+          rl-portal-org: Trial
+          rl-portal-group: 'SKO 2024'
+          rl-timeout: 5
+          rl-submit-only: false
+          artifact-to-scan: 'target/debug/rust-codespaces'
+          rl-package-url: 'ProjectNameHere/rust-codespaces@1.0'
+
+      - name: Output scan status
+        if: success() || failure()
+        run: |
+          echo "The status is: '${{ steps.rl-scan.outputs.status }}'"
+          echo "The description is: '${{ steps.rl-scan.outputs.description }}'"
+          # COMING SOON echo "The link to the report is: '${{ steps.rl-scan.outputs.report_url }}'"
