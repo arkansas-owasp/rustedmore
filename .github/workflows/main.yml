@@ -5,6 +5,7 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  THIS_FREAKING_RUN: $GITHUB_RUN_NUMBER
 
 jobs:
   BuildAndScan:
@@ -36,7 +37,7 @@ jobs:
           rl-timeout: 5
           rl-submit-only: false
           artifact-to-scan: 'target/debug/rust-codespaces'
-          rl-package-url: andyl/rust-codespaces@1.0.${{ GITHUB_RUN_NUMBER }}
+          rl-package-url: andyl/rust-codespaces@1.0.${{ THIS_FREAKING_RUN }}
 
       - name: Output scan status
         if: success() || failure()
