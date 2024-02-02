@@ -37,7 +37,7 @@ jobs:
           rl-timeout: 5
           rl-submit-only: false
           artifact-to-scan: 'target/debug/rust-codespaces'
-          rl-package-url: andyl/rust-codespaces@1.0.'${{ github.run_id }}'
+          rl-package-url: andyl/rust-codespaces@1.0.${{ github.run_number }}
 
       - name: Output scan status
         if: success() || failure()
