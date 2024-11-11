@@ -1,5 +1,9 @@
 # Codespaces Rust Starter
 
+Freaking file URL for Shows:
+
+https://drive.google.com/file/d/1N9IUnwRBfHbm75n5bCPlCtByveIY3Fng/view?usp=sharing
+
 This project is a generic starter for developers to use in Codespaces that includes basic system tools and extensions.
 
 ## What's Included
